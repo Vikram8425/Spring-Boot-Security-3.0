@@ -44,22 +44,23 @@ public class SecurityConfig {
    // Authentication
     @Bean
     public UserDetailsService userDetailsService( PasswordEncoder encoder){
-        UserDetails admin=User.withUsername("Basant")
-                .password(encoder.encode("123"))
-                .roles("ADMIN")
-                .build();
-
-
-        UserDetails normal=User.withUsername("vicky")
-                .password(encoder.encode("123"))
-                .roles("USER")
-                .build();
-        UserDetails staff=User.withUsername("vicky1")
-                .password(encoder.encode("123"))
-                .roles("STAFF")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin,normal,staff);
+//        UserDetails admin=User.withUsername("Basant")
+//                .password(encoder.encode("123"))
+//                .roles("ADMIN")
+//                .build();
+//
+//
+//        UserDetails normal=User.withUsername("vicky")
+//                .password(encoder.encode("123"))
+//                .roles("USER")
+//                .build();
+//        UserDetails staff=User.withUsername("vicky1")
+//                .password(encoder.encode("123"))
+//                .roles("STAFF")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(admin,normal,staff);
+        return null;
     }
 
 
