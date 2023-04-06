@@ -2,6 +2,8 @@ package demo.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -43,7 +45,7 @@ public class SecurityConfig {
      */
    // Authentication
     @Bean
-    public UserDetailsService userDetailsService( PasswordEncoder encoder){
+    public UserDetailsService userDetailsService( ){
 //        UserDetails admin=User.withUsername("Basant")
 //                .password(encoder.encode("123"))
 //                .roles("ADMIN")
@@ -60,7 +62,7 @@ public class SecurityConfig {
 //                .build();
 //
 //        return new InMemoryUserDetailsManager(admin,normal,staff);
-        return null;
+        return new UserInfoDetailsService();
     }
 
 
@@ -69,7 +71,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
        return http.csrf().disable().authorizeHttpRequests().
-                requestMatchers("/products/welcome").permitAll()
+                requestMatchers("/products/userSignup").permitAll()
                 .and().authorizeHttpRequests().requestMatchers("/products/**")
                 .authenticated().and().formLogin().and().build();
 
@@ -82,4 +84,13 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider auth=new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userDetailsService());
+        auth.setPasswordEncoder(passwordEncoder());
+        return  auth;
+
+    }
 }

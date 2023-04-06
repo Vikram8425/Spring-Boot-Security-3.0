@@ -21,14 +21,28 @@ public class ProductControler {
     public String Welcome(){
         return "Welcome to this endpoint is not secure";
     }
+
+    @ResponseBody
     @PostMapping("/userSignup")
     public String addNewUser(@RequestBody UserInfo userInfo){
+        System.out.println("Hit signup");
         try {
             UserInfo userInfo1 = this.service.addUser(userInfo);
             return "User Added Successfully";
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return "Internal Server Error";
+            System.out.println(e.getCause());
+            System.out.println(e.fillInStackTrace());
+            System.out.println(e.getLocalizedMessage());
+            System.out.println(e.getStackTrace());
+            System.out.println(e.toString());
+
+
+
+
+
+
+            return  ""+e.getCause();
         }
     }
 

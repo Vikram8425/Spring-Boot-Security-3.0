@@ -18,14 +18,17 @@ import java.util.stream.IntStream;
 public class ProductService {
     @Autowired
    private UserInfoRepository UserRepo;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     List<Product> ProductList;
 
     // addUser
     public UserInfo addUser(UserInfo userInfo){
-
+        userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
          UserInfo userInfo1=UserRepo.save(userInfo);
+
+
         return  userInfo1;
     }
 
